@@ -1,6 +1,8 @@
 <?php
 
-if ( isset($_POST['getExpenses']) ) {
+if ( isset($_POST['get_expenses']) ) {
+
+    // var_dump($_POST['getExpenses']);
 
     $server = "localhost";
     $user = "root";
