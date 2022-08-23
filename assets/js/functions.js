@@ -55,7 +55,28 @@ function change_content(value) {
 
         case 'add_income':
             content.innerHTML = '';
-            content.innerHTML = 'Agregando ingreso';
+            content.innerHTML = `
+                <br/>
+                <div class="container">
+                    <h2>Agregar Ingreso</h2>
+                    <div class="form-group">
+                        <label for="name">Nombre del ingreso</label>
+                        <input type="text" class="form-control" id="name" placeholder="">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="amount">Ingreso</label>
+                        <input type="number" class="form-control" id="amount" placeholder="">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="description">Descripcion</label>
+                        <textarea class="form-control" id="description" rows="3"></textarea>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary" onclick="add_income();">Agregar</button>
+                </div>
+            `;
             break;
 
         case 'home':

@@ -71,3 +71,43 @@ function add_expense() {
     cost.value = '';
     description.value = '';
 }
+
+function add_income() {
+    let name = document.querySelector("#name");
+    let amount = document.querySelector("#amount");
+    let description = document.querySelector("#description");
+    let data = [];
+    data.push(name.value, amount.value, description.value);
+
+    $.ajax({
+        type: "POST",
+        url: 'model/incomes.php',
+        data: $(this).serialize() + "&add_income="+data,
+        success: function(response) {
+            var jsonData = JSON.parse(response);
+            // console.log(jsonData);
+
+            if(jsonData.status == "success") {
+                Swal.fire({
+                    position: 'top-end',
+                    icon: 'success',
+                    title: 'Ingreso agregado correctamente',
+                    showConfirmButton: false,
+                    timer: 1500
+                });
+            } else {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: 'Algo salio mal al guardar!'
+                });
+            }
+
+
+        }
+    });
+
+    name.value = '';
+    amount.value = '';
+    description.value = '';
+}
