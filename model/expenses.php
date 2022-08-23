@@ -47,7 +47,7 @@ if ( isset($_POST['get_expenses']) ) {
 
     echo json_encode( $data );
 
-} else if( isset($_POST['add_expense'])) {
+} else if( isset($_POST['add_expense']) ) {
 
     $data = explode(",", $_POST['add_expense']);
 
@@ -97,6 +97,56 @@ if ( isset($_POST['get_expenses']) ) {
                 );
 
             }
+
+        }
+
+        echo json_encode( $data );
+
+    }
+
+}  else if ( isset($_POST['get_expenses_month']) ){
+    $server = "localhost";
+    $user = "root";
+    $password = "";
+    $database = "expense_management";
+
+    $mysqli = new mysqli($server,$user, $password, $database);
+
+    if ($mysqli->connect_errno) {
+        echo "Falló la conexión: %s\n".$mysqli->connect_error;
+        $data = array(
+            'code' => 400,
+            'status' => 'error'
+        );
+
+    } else {
+        $data = explode(",", $_POST['get_expenses_month']);
+        $month = $data[0];
+        $year = $data[1];
+
+        $query = "SELECT * FROM expenses WHERE MONTH(date) = '".$month."' AND YEAR(date) = '".$year."'";
+
+        if ($result = $mysqli->query( $query )) {
+
+            $expenses = array();
+            for ($i=0; $i < $result->num_rows; $i++) {
+                $row = $result->fetch_row();
+                array_push($expenses, $row);
+            }
+
+            $data = array(
+                'code' => 200,
+                'status' => 'success',
+                'expenses' => $expenses
+            );
+
+            $result->close();
+
+        } else {
+            $data = array(
+                'code' => 400,
+                'status' => 'error'
+            );
 
         }
 
