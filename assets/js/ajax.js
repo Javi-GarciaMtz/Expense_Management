@@ -99,7 +99,7 @@ function add_income() {
                 Swal.fire({
                     icon: 'error',
                     title: 'Oops...',
-                    text: 'Algo salio mal al guardar!'
+                    text: `${jsonData['message']}`
                 });
             }
 
