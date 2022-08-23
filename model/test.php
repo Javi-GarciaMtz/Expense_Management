@@ -35,7 +35,7 @@ $query_insert = "INSERT INTO expenses (id, name, cost, date, description) VALUES
 if ($result = $mysqli->query($query_insert)) {
 
     var_dump($result);
-
+    // $result->close();
 }
 
 
