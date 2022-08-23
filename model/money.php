@@ -1,34 +1,42 @@
 <?php
 
+include_once 'connection_db.php';
+
 if ( isset($_POST['get_money']) ) {
 
-    $server = "localhost";
-    $user = "root";
-    $password = "";
-    $database = "expense_management";
+    $conn = new connectionDB();
 
-    $mysqli = new mysqli($server, $user, $password, $database);
+    if( $conn->connect() ) {
+        $query = "SELECT * FROM money";
+        $result = $conn->query($query);
 
-    if ($mysqli->connect_errno) {
-        echo "Falló la conexión: %s\n".$mysqli->connect_error;
-        $data = array(
-            'code' => 400,
-            'status' => 'error'
-        );
+        if( is_object($result) ) {
+            $money_at_moment = floatval($result->fetch_row()[1]);
+            $data = array(
+                'code' => 200,
+                'status' => 'success',
+                'money_at' => $money_at_moment
+            );
+            $conn->disconnect();
+
+        } else {
+            $data = array(
+                'code' => 400,
+                'status' => 'error',
+                'message' => 'ERROR: Error al realizar la consulta.'
+            );
+
+        }
 
     } else {
-        $money_at_moment = 0;
-        $result = $mysqli->query("SELECT * FROM money");
-
-        $money_at_moment = floatval($result->fetch_row()[1]);
-
         $data = array(
-            'code' => 200,
-            'status' => 'success',
-            'money_at' => $money_at_moment
+            'code' => 400,
+            'status' => 'error',
+            'message' => 'ERROR: Error al realizar la conexión.'
         );
 
-        echo json_encode( $data );
     }
+
+    echo json_encode( $data );
 
 }
