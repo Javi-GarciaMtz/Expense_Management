@@ -1,6 +1,7 @@
 <?php
 
 include_once 'connection_db.php';
+include_once 'MoneyManager.php';
 
 class ExpensesManager {
 
@@ -57,33 +58,16 @@ class ExpensesManager {
 
     }
 
-    // -------------------- ESTO SE DEBE MOVER A MONEY
-    public function mod_money($amount, $add_or_sub) {
-        $money_at_moment = 0;
-        $result = $this->conn->query("SELECT * FROM money");
-
-        $money_at_moment = floatval($result->fetch_row()[1]);
-
-        if( $add_or_sub == '-') {
-            $money_at_moment -= $amount;
-        } else if($add_or_sub == '+') {
-            $money_at_moment += $amount;
-        }
-
-        $query_update_money = "UPDATE money SET amount = ".$money_at_moment. " WHERE money.id = 1";
-
-        $this->conn->query($query_update_money);
-
-    }
-    // ----------------------- TODO ESTO AAAAAAAAA
-
     public function add_expense($dataPost) {
         $name_expense = $dataPost[0];
         $cost = floatval($dataPost[1]);
         $date = date("Y-m-d");
         $description = $dataPost[2];
 
-        $this->mod_money($cost, '-');
+        // $this->mod_money($cost, '-');
+        $money_manager = new MoneyManager();
+        $money_manager->connect();
+        $money_manager->mod_money($cost, '-');
 
         $query_insert = "INSERT INTO expenses (id, name, cost, date, description) VALUES (NULL, '".$name_expense."' , '".$cost."' , '".$date."' , '".$description."' )";
 
