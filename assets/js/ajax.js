@@ -2,8 +2,8 @@
 function get_expenses() {
     $.ajax({
         type: "POST",
-        url: 'model/expenses.php',
-        data: $(this).serialize() + "&get_expenses="+1,
+        url: 'model/routing.php',
+        data: $(this).serialize() + "&get_expenses_all="+1,
         success: function(response) {
             var jsonData = JSON.parse(response);
             console.log(jsonData);
@@ -41,7 +41,7 @@ function add_expense() {
 
     $.ajax({
         type: "POST",
-        url: 'model/expenses.php',
+        url: 'model/routing.php',
         data: $(this).serialize() + "&add_expense="+data,
         success: function(response) {
             var jsonData = JSON.parse(response);
@@ -120,7 +120,7 @@ function expenses_mont() {
 
     $.ajax({
         type: "POST",
-        url: 'model/expenses.php',
+        url: 'model/routing.php',
         data: $(this).serialize() + "&get_expenses_month="+data,
         success: function(response) {
             var jsonData = JSON.parse(response);

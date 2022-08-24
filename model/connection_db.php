@@ -25,6 +25,7 @@ class connectionDB{
         }
 
         return $data;
+
     }
 
     public function disconnect(){
