@@ -1,5 +1,7 @@
 <?php
 
+include_once '../connection_db.php';
+
 class MoneyManager {
 
     private $conn;
@@ -43,6 +45,30 @@ class MoneyManager {
         // revisar posibles salidas y desconectar la db
     }
 
-    public function get_money() {}
+    public function get_money() {
+        $query = "SELECT * FROM money";
+        $result = $this->conn->query($query);
+
+        if($result) {
+            $money_at_moment = floatval($result->fetch_row()[1]);
+            $data = array(
+                'code' => 200,
+                'status' => 'success',
+                'money_at' => $money_at_moment
+            );
+
+        } else {
+            $data = array(
+                'code' => 400,
+                'status' => 'error',
+                'message' => 'ERROR: Error al realizar la consulta del dinero.'
+            );
+
+        }
+
+        $this->conn->disconnect();
+        return $data;
+
+    }
 
 }

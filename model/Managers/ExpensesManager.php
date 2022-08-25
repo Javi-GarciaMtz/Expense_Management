@@ -1,6 +1,6 @@
 <?php
 
-include_once 'connection_db.php';
+include_once '../connection_db.php';
 include_once 'MoneyManager.php';
 
 class ExpensesManager {

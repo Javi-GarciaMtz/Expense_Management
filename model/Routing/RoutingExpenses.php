@@ -1,6 +1,6 @@
 <?php
 
-include_once 'Managers/ExpensesManager.php';
+include_once '../Managers/ExpensesManager.php';
 
 if ( isset($_POST['get_expenses_all']) ) {
     $expenses_manager = new ExpensesManager;
