@@ -14,7 +14,7 @@ function get_expenses() {
 function get_money_at_moment() {
     $.ajax({
         type: "POST",
-        url: 'model/Routing/Routingmoney.php',
+        url: 'model/Routing/RoutingMoney.php',
         data: $(this).serialize() + "&get_money="+1,
         success: function(response) {
             var jsonData = JSON.parse(response);
@@ -81,7 +81,7 @@ function add_income() {
 
     $.ajax({
         type: "POST",
-        url: 'model/incomes.php',
+        url: 'model/Routing/RoutingIncomes.php',
         data: $(this).serialize() + "&add_income="+data,
         success: function(response) {
             var jsonData = JSON.parse(response);

@@ -14,3 +14,5 @@ if ( isset($_POST['get_money']) ) {
     echo json_encode( $data );
 
 }
+
+//

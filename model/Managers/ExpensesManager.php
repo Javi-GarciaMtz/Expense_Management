@@ -64,7 +64,7 @@ class ExpensesManager {
         $date = date("Y-m-d");
         $description = $dataPost[2];
 
-        // $this->mod_money($cost, '-');
+        // Actualizamos el dinero actual
         $money_manager = new MoneyManager();
         $money_manager->connect();
         $money_manager->mod_money($cost, '-');
@@ -83,6 +83,7 @@ class ExpensesManager {
                 'status' => 'error',
                 'message' => 'ERROR: Error al agregar el gasto.'
             );
+            $money_manager->mod_money($cost, '-');
 
         }
 
