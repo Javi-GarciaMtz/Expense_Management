@@ -13,6 +13,12 @@ class connectionDB{
         $this->user = "root";
         $this->password = "";
         $this->database = "expense_management";
+
+        // $this->server = "localhost";
+        // $this->user = "id17104529_testing";
+        // $this->password = "7v{ImI1*kp&Vqdl~";
+        // $this->database = "id17104529_expense_management";
+
     }
 
     public function connect(){
